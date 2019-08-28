@@ -70,29 +70,28 @@ describe "Trip class" do
       end
     end
   end
-end
-
-describe "duration of trip in seconds" do
-  it "calculates the duration of the trip" do
-    start_time = Time.parse("2015-05-20T12:14:00+00:00")
-    end_time = Time.parse("2015-05-20T12:16:00+00:00")
-    @trip_data = { id: 8,
-      passenger: RideShare::Passenger.new(
-        id: 1,
-        name: "Ada",
-        phone_number: "412-432-7640"),
-        start_time: start_time     #.to_s,
-        end_time: end_time      
-        cost: 23.45,
-        rating: 3
-      }
-      trip = RideShare::Trip.new(@trip_data)
-      expect(trip.calculate_trip_duration).must_equal 60
+  
+  describe "duration of trip in seconds" do
+    it "calculates the duration of the trip" do
+      start_time = Time.parse("2015-05-20T12:14:00+00:00")
+      end_time = Time.parse("2015-05-20T12:15:00+00:00")
+      @trip_data = { id: 8,
+        passenger: RideShare::Passenger.new(
+          id: 1,
+          name: "Ada",
+          phone_number: "412-432-7640"),
+          start_time: start_time,     #.to_s,
+          end_time: end_time,      
+          cost: 23.45,
+          rating: 3
+        }
+        trip = RideShare::Trip.new(@trip_data)
+        expect(trip.calculate_trip_duration(trip.start_time, trip.end_time)).must_equal 60
+      end
     end
   end
-end
-end
-
-
-
-
+  
+  
+  
+  
+  
