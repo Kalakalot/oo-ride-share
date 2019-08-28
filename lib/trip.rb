@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 
 require_relative 'csv_record'
 
@@ -36,8 +37,13 @@ module RideShare
           "The end time is earlier than the start time."
         )
         
-      end
-    end    
+      end    
+    end
+    
+    def calculate_trip_duration(start_time, end_time) 
+    duration = (end_time - start_time).to_i
+      return duration
+    end
     
     def inspect
       # Prevent infinite loop when puts-ing a Trip
