@@ -7,7 +7,7 @@ module RideShare
   class Trip < CsvRecord
     attr_reader :id, :passenger, :passenger_id, :start_time, :end_time, :cost, :rating
     
-    def initialize(id:,
+    def initialize(id:, 
       passenger: nil, passenger_id: nil,
       start_time:, end_time:, cost: nil, rating:)
       super(id)
@@ -41,7 +41,7 @@ module RideShare
     end
     
     def calculate_trip_duration(start_time, end_time) 
-      puts 'start_timestart_time'
+      puts 'start_time'
       puts start_time
       duration = (end_time - start_time).to_i
       return duration
