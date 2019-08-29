@@ -1,11 +1,11 @@
 require_relative 'test_helper'
 
-xdescribe "Driver class" do
+describe "Driver class" do
   describe "Driver instantiation" do
     before do
       @driver = RideShare::Driver.new(
         id: 54,
-        name: "Test Driver",
+        name: "Test Driver dan change",
         vin: "12345678901234567",
         status: :AVAILABLE
       )
@@ -15,8 +15,13 @@ xdescribe "Driver class" do
       expect(@driver).must_be_kind_of RideShare::Driver
     end
     
-    it "throws an argument error with a bad VIN" do
-      expect { RideShare::Driver.new(id: 0, name: "George", vin: "33133313331333133") }.must_raise ArgumentError
+    # This test initially said "bad vin" but we learned via pry that the test
+    # code is actually looking at driver ID, not VIN. So this is one instance 
+    # where we believe it is appropriate to change the test.
+    it "throws an argument error with a bad ID" do
+      expect { 
+        RideShare::Driver.new(id: 0, name: "George", vin: "33133313331333133")
+      }.must_raise ArgumentError
     end
     
     it "throws an argument error with a bad VIN value" do
@@ -45,7 +50,7 @@ xdescribe "Driver class" do
     end
   end
   
-  describe "add_trip method" do
+  xdescribe "add_trip method" do
     before do
       pass = RideShare::Passenger.new(
         id: 1,
@@ -78,7 +83,7 @@ xdescribe "Driver class" do
     end
   end
   
-  describe "average_rating method" do
+  xdescribe "average_rating method" do
     before do
       @driver = RideShare::Driver.new(
         id: 54,
@@ -130,7 +135,7 @@ xdescribe "Driver class" do
     end
   end
   
-  describe "total_revenue" do
+  xdescribe "total_revenue" do
     # You add tests for the total_revenue method
   end
 end

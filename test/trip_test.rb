@@ -1,5 +1,5 @@
-require_relative 'test_helper'
 require 'time'
+require_relative 'test_helper'
 
 describe "Trip class" do
   describe "initialize" do

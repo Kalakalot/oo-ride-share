@@ -3,6 +3,7 @@ require 'time'
 
 require_relative 'passenger'
 require_relative 'trip'
+require_relative 'driver'
 
 module RideShare
   class TripDispatcher
@@ -11,12 +12,18 @@ module RideShare
     def initialize(directory: './support')
       @passengers = Passenger.load_all(directory: directory)
       @trips = Trip.load_all(directory: directory)
+      @drivers = Driver.load_all(directory: directory)
       connect_trips
     end
     
     def find_passenger(id)
       Passenger.validate_id(id)
       return @passengers.find { |passenger| passenger.id == id }
+    end
+    
+    def driver(id)
+      Driver.validate_id(id)
+      return @drivers.find { |driverer| driver.id == id }
     end
     
     def inspect

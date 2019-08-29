@@ -5,20 +5,24 @@ require_relative 'csv_record'
 
 module RideShare
   class Trip < CsvRecord
-    attr_reader :id, :passenger, :passenger_id, :start_time, :end_time, :cost, :rating, :driver_id
+    attr_reader :id, :passenger, :passenger_id, :start_time, :end_time, :cost, :rating, :driver_id, :driver
     
-    def initialize(id:, driver_id:,
-      passenger: nil, passenger_id: nil,
-      start_time:, end_time:, cost: nil, rating:)
+    def initialize(id:, 
+      passenger: nil, 
+      passenger_id: nil,
+      start_time:, 
+      end_time:, 
+      cost: nil, 
+      rating:,
+      driver_id: nil,
+      driver: nil )
       super(id)
       
       if passenger
         @passenger = passenger
         @passenger_id = passenger.id
-        
       elsif passenger_id
         @passenger_id = passenger_id
-        
       else
         raise ArgumentError, 'Passenger or passenger_id is required'
       end
@@ -57,6 +61,8 @@ module RideShare
     def connect(passenger)
       @passenger = passenger
       passenger.add_trip(self)
+      @driver = driver
+      driver.add_trip(self)
     end
     
     private
@@ -69,7 +75,7 @@ module RideShare
         end_time: Time.parse(record[:end_time]),
         cost: record[:cost],
         rating: record[:rating],
-        driver_id: record[:driver_id]
+        driver_id: record[:driver_id],
       )
     end
   end
