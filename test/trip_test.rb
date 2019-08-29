@@ -88,7 +88,7 @@ describe "Trip class" do
           rating: 3
         }
         trip = RideShare::Trip.new(@trip_data)
-        expect(trip.calculate_trip_duration(trip.start_time, trip.end_time)).must_equal 60
+        expect(trip.calculate_trip_duration).must_equal 60
       end
     end
   end

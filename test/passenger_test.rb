@@ -87,6 +87,12 @@ describe "Passenger class" do
       @passenger.add_trip(trip2)
       expect(@passenger.net_expenditures).must_equal 6
     end
+    
+    it "calculates total time spent per passenger" do
+      trip1 = RideShare::Trip.new( id: 8, driver_id: 4, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 2, rating: 1)
+      trip2 = RideShare::Trip.new( id: 8, driver_id: 9, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 4, rating: 1)
+      expect(@passenger.total_time_spent).must_equal 86400
+    end
   end
   
   
