@@ -41,9 +41,7 @@ module RideShare
       end    
     end
     
-    def calculate_trip_duration(start_time, end_time) 
-      puts 'start_time'
-      puts start_time
+    def calculate_trip_duration
       duration = (end_time - start_time).to_i
       return duration
     end
