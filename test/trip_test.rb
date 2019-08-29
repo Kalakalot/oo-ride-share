@@ -17,7 +17,8 @@ describe "Trip class" do
         start_time: start_time,
         end_time: end_time,
         cost: 23.45,
-        rating: 3
+        rating: 3,
+        driver_id: 6
       }
       @trip = RideShare::Trip.new(@trip_data)
       
@@ -38,7 +39,8 @@ describe "Trip class" do
           start_time: start_time,
           end_time: end_time,
           cost: 23.45,
-          rating: 3
+          rating: 3,
+          driver_id: 4
         }
         expect do
           if end_time < start_time
@@ -75,7 +77,7 @@ describe "Trip class" do
     it "calculates the duration of the trip" do
       start_time = Time.parse("2015-05-20T12:14:00+00:00")
       end_time = Time.parse("2015-05-20T12:15:00+00:00")
-      @trip_data = { id: 8,
+      @trip_data = { id: 8, driver_id: 8,
         passenger: RideShare::Passenger.new(
           id: 1,
           name: "Ada",

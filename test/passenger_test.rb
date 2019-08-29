@@ -51,7 +51,8 @@ describe "Passenger class" do
         # Julia's note: not sure if syntax below is correct
         start_time: Time.parse('2016-08-08'),
         end_time: Time.parse('2016-08-09'),
-        rating: 5
+        rating: 5,
+        driver_id: 8
       )
       
       @passenger.add_trip(trip)
@@ -79,12 +80,12 @@ describe "Passenger class" do
       #make a variable to shovel the answer into
       #add the expect with the new variable with the .net_expenditures with the total amount needed.
       @passenger = RideShare::Passenger.new(id: 1, name: "Smithy", phone_number: "353-533-5334")
-      @driver = RideShare::Driver.new(id: 54, name: "Test Driver", vin: "12345678901234567", status: :AVAILABLE)
-      trip1 = RideShare::Trip.new( id: 8, driver: @driver, driver_id: 4, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 2, rating: 1)
-      trip2 = RideShare::Trip.new( id: 8, driver: @driver, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 4, rating: 1)
+      # @driver = RideShare::Driver.new(id: 54, name: "Test Driver", vin: "12345678901234567", status: :AVAILABLE)
+      trip1 = RideShare::Trip.new( id: 8, driver_id: 4, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 2, rating: 1)
+      trip2 = RideShare::Trip.new( id: 8, driver_id: 9, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 4, rating: 1)
       @passenger.add_trip(trip1)
       @passenger.add_trip(trip2)
-      expect(passenger.net_expenditures).must_equal 6
+      expect(@passenger.net_expenditures).must_equal 6
     end
   end
   
