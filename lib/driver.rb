@@ -28,17 +28,30 @@ module RideShare
     
     def average_rating
       total = 0.0
-      if finished_trips.length == 0
-        retrun 0
+      if trips.length == 0
+        return 0
       end
-      finished_trips.each do |trip|
+      trips.each do |trip|
         total += trip.rating 
       end
-      return total / finished_trips.length
+      return total / trips.length
     end
     
     def total_revenue
+
+      # Pull trip costs out of driver's trips array 
+      gross_revenue_array = []
+      trips.each do |trip|
+        gross_revenue_array << trip.cost
+      end
+
+      # Multiply number of trips by trip fee ($1.65)
+      total_fees = gross_revenue_array.length * 1.65
+
+      # Subtract total fees from gross revenue, then return 80% of that
+      driver_earnings = (gross_revenue_array.sum - total_fees) * 0.80
       
+      return driver_earnings
     end
     
     def self.from_csv(record)

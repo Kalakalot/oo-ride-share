@@ -50,7 +50,7 @@ describe "Driver class" do
     end
   end
   
-  xdescribe "add_trip method" do
+  describe "add_trip method" do
     before do
       pass = RideShare::Passenger.new(
         id: 1,
@@ -133,9 +133,21 @@ describe "Driver class" do
       
       expect(@driver.average_rating).must_be_close_to (5.0 + 1.0) / 2.0, 0.01
     end
-  end
-  
-  xdescribe "total_revenue" do
-    # You add tests for the total_revenue method
+    
+    it "returns net revenue for a driver" do
+      
+      @driver = RideShare::Driver.new(
+        id: 54,
+        name: "Rogers Bartell IV",
+        vin: "1C9EVBRM0YBC564DZ"
+      )
+      trip1 = RideShare::Trip.new( id: 8, driver_id: 4, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 2, rating: 1)
+      trip2 = RideShare::Trip.new( id: 8, driver_id: 9, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 4, rating: 1)
+      
+      @driver.add_trip(trip1)
+      @driver.add_trip(trip2)
+      
+      expect(@driver.total_revenue).must_be_close_to 2.16
+    end
   end
 end
