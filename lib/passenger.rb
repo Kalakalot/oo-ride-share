@@ -21,11 +21,7 @@ module RideShare
       self.trips.each do |trip|
         passenger_costs << trip.cost
       end
-      if passenger_costs.length == 0
-        raise ArgumentError.new("There are no trips associated with this passenger")
-      else 
         total_cost = passenger_costs.sum
-      end
       return total_cost
     end
     

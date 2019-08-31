@@ -86,22 +86,23 @@ describe "Passenger class" do
       @passenger.add_trip(trip2)
       expect(@passenger.net_expenditures).must_equal 6
     end
-
-    it "raises an ArgumentError when net_expenditures is called on a passenger who hasn't taken any trips" do
-      expect {
-      (RideShare::Passenger.new(id: 1, name: "Smithy", phone_number: "353-533-5334")).net_expenditures
-      }.must_raise ArgumentError
+    
+    it "returns 0 if net_expenditures is called on a passenger with no trips" do
+      @passenger = RideShare::Passenger.new(id: 1, name: "Smithy", phone_number: "353-533-5334")  
+      expect(@passenger.net_expenditures).must_equal 0
     end
-
     
     it "calculates total time spent per passenger" do
       trip1 = RideShare::Trip.new( id: 8, driver_id: 4, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 2, rating: 1)
       trip2 = RideShare::Trip.new( id: 8, driver_id: 9, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 4, rating: 1)
       expect(@passenger.total_time_spent).must_equal 86400
     end
+    
+    it "returns 0 if total_time_spent is called on a passenger with no trips" do
+      @passenger = RideShare::Passenger.new(id: 1, name: "Smithy", phone_number: "353-533-5334")  
+      expect(@passenger.total_time_spent).must_equal 0
+    end
+    
   end
-  
-  
-  
-  
 end
+  
