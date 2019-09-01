@@ -70,9 +70,6 @@ module RideShare
       # use helper method in driver.rb to update driver's trips and status
       assigned_driver.driver_helper(new_trip)
       
-      # add the new trip to the passenger's collection of trips
-      
-
       # add the new trip to collection of all trips
       @trips << new_trip
       

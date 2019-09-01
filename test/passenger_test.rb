@@ -71,17 +71,9 @@ describe "Passenger class" do
     end
     
     it "calculates passenger net expenditures" do
-      #grab a passenger instance example
-      #find 2 trips and add to the passenger
-      #ADD (method)
-      #have an array of trip costs 
-      #when adding, add by array
-      #passenger.trips at the index
-      #make a variable to shovel the answer into
-      #add the expect with the new variable with the .net_expenditures with the total amount needed.
       @passenger = RideShare::Passenger.new(id: 1, name: "Smithy", phone_number: "353-533-5334")
       trip1 = RideShare::Trip.new( id: 8, driver_id: 4, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 2, rating: 1)
-      trip2 = RideShare::Trip.new( id: 8, driver_id: 9, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 4, rating: 1)
+      trip2 = RideShare::Trip.new( id: 8, driver_id: 9, passenger_id: 5, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 4, rating: 1)
       @passenger.add_trip(trip1)
       @passenger.add_trip(trip2)
       expect(@passenger.net_expenditures).must_equal 6
@@ -90,6 +82,15 @@ describe "Passenger class" do
     it "returns 0 if net_expenditures is called on a passenger with no trips" do
       @passenger = RideShare::Passenger.new(id: 1, name: "Smithy", phone_number: "353-533-5334")  
       expect(@passenger.net_expenditures).must_equal 0
+    end
+    
+    it "raises an error message if net_expenditures is called on passenger with an in-progress trip" do
+      @passenger = RideShare::Passenger.new(id: 1, name: "Smithy", phone_number: "353-533-5334")
+      trip1 = RideShare::Trip.new( id: 8, driver_id: 4, passenger_id: 3, start_time: Time.parse("2016-08-08"), end_time: Time.parse("2016-08-09"), cost: 2, rating: 1)
+      trip2 = RideShare::Trip.new( id: 8, driver_id: 9, passenger_id: 5, start_time: Time.now, end_time: nil)
+      @passenger.add_trip(trip1)
+      @passenger.add_trip(trip2)
+      expect(@passenger.net_expenditures).must_raise ArgumentError
     end
     
     it "calculates total time spent per passenger" do
@@ -105,4 +106,3 @@ describe "Passenger class" do
     
   end
 end
-  

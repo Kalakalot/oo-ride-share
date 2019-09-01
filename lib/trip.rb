@@ -11,7 +11,7 @@ module RideShare
       passenger: nil, 
       passenger_id: nil,
       start_time:, 
-      end_time:, 
+      end_time: nil, 
       cost: nil, 
       rating: nil,
       driver_id: nil,
