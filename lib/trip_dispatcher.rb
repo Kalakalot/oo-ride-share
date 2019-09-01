@@ -35,16 +35,20 @@ module RideShare
     end
     
     def request_trip(passenger_id)
-      # raise error if there are no drivers available
-      # drivers.each do |driver| 
-      #   raise ArgumentError.new("There are no drivers available")
       
-      # find first driver who is available and assign them to new trip
-      assigned_driver = @drivers.find { |driver| driver.status == :AVAILABLE}
+      # assign driver from first available in list of drivers 
+      assigned_driver = @drivers.find do |driver| 
+        driver.status == :AVAILABLE
+      end
+      
+      # raise error if there are no drivers available
+      if assigned_driver == nil
+        raise ArgumentError, "There are no drivers available at this time"
+      end
       
       # define variables needed for trip instantiation
       # to generate trip id, take the last trip id in trips.csv and add 1
-      id = (@trips.length) + 1
+      id = (@trips.count) + 1
       start_time = Time.now
       end_time = nil
       rating = nil
@@ -64,7 +68,7 @@ module RideShare
       assigned_driver.driver_helper(new_trip)
       
       # use the passenger id to look up passenger
-      passenger = @passengers.find { |passenger| passenger.id == id }
+      # passenger = @passengers.find { |passenger| passenger.id == id }
       
       # add the new trip to the passenger's collection of trips
       

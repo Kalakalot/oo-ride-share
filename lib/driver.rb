@@ -32,7 +32,9 @@ module RideShare
         return 0
       end
       trips.each do |trip|
-        total += trip.rating 
+        if trip.rating != nil
+          total += trip.rating 
+        end
       end
       return total / trips.length
     end
@@ -42,7 +44,9 @@ module RideShare
       # Pull trip costs out of driver's trips array 
       gross_revenue_array = []
       trips.each do |trip|
-        gross_revenue_array << trip.cost
+        if trip.cost != nil
+          gross_revenue_array << trip.cost
+        end
       end
       
       # Multiply number of trips by trip fee ($1.65)
@@ -66,7 +70,7 @@ module RideShare
       return self.new(id: record[:id],
         name: record[:name],
         vin: record[:vin],
-        status: record[:status]
+        status: record[:status].to_sym
       )
     end
   end

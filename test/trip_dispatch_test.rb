@@ -24,7 +24,7 @@ describe "TripDispatcher class" do
       
       expect(dispatcher.trips).must_be_kind_of Array
       expect(dispatcher.passengers).must_be_kind_of Array
-      # expect(dispatcher.drivers).must_be_kind_of Array
+      expect(dispatcher.drivers).must_be_kind_of Array
     end
     
     it "loads the development data by default" do
@@ -126,32 +126,17 @@ describe "TripDispatcher class" do
   describe "Request_trip methods" do
     before do
       @dispatcher = build_test_dispatcher
+      @trip = @dispatcher.request_trip(1)
     end
     
     it "return value is an instance of Trip" do
-      @trip = @dispatcher.request_trip(1)
-
-      # expect(@trip.passenger.name).must_equal "Passenger 1"
-        # expect(trip.driver.name).must_equal "Driver 2"
-        # expect(trip.end_time).must_equal nil
-        # expect(trip.cost).must_equal nil
-        # expect(trip_rating).must_equal nil
-
       expect(@trip).must_be_kind_of RideShare::Trip
     end
-
-    # it "accurately creates a new trip" do
-
-    # it "request_trip creates a new trip instance" do
-    #   dispatcher = build_test_dispatcher
-    #   request_trip(1)
-    #   expect(trip.passenger.name).must_equal "Passenger 1"
-    #   expect(trip.driver.name).must_equal "Driver 2"
-    #   # how to test for start time? (current time when trip was requested)
-    #   expect(trip.end_time).must_equal nil
-    #   expect(trip.cost).must_equal nil
-    #   expect(trip_rating).must_equal nil
-    # end
-
+    
+    it "raises an error if there are no drivers available" do
+      @test_trip2 = @dispatcher.request_trip(2)
+      expect{@dispatcher.request_trip(2)}.must_raise ArgumentError
+    end
+        
   end
 end

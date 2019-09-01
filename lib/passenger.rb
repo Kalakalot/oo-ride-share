@@ -21,14 +21,16 @@ module RideShare
       self.trips.each do |trip|
         passenger_costs << trip.cost
       end
-        total_cost = passenger_costs.sum
+      total_cost = passenger_costs.sum
       return total_cost
     end
     
     def total_time_spent #return total amount of time passenger has spent on trips
       passenger_time = []
       self.trips.each do |trip|
-        passenger_time << trip.calculate_trip_duration
+        if trip.end_time != nil
+          passenger_time << trip.calculate_trip_duration
+        end
       end
       total_time_per_pass = passenger_time.sum
       return total_time_per_pass
