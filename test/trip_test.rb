@@ -82,7 +82,7 @@ describe "Trip class" do
           id: 1,
           name: "Ada",
           phone_number: "412-432-7640"),
-          start_time: start_time,     #.to_s,
+          start_time: start_time,     
           end_time: end_time,      
           cost: 23.45,
           rating: 3

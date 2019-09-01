@@ -132,13 +132,30 @@ describe "TripDispatcher class" do
     it "return value is an instance of Trip" do
       expect(@trip).must_be_kind_of RideShare::Trip
     end
+
+    it "new trip has expected data types and values" do
+      expect(@trip.id).must_equal 6
+      expect(@trip.end_time).must_equal nil
+      expect(@trip.rating).must_equal nil
+      expect(@trip.driver.name).must_equal "Driver 2"
+      expect(@trip.driver.id).must_equal 2
+    end
+    
+    it "adds the new trip to a the collection of all trips" do
+      expect @dispatcher.trips.include?(@trip)
+    end
+    
+    it "sets driver's status to unavailable" do
+      expect @trip.driver.status == :UNAVAILABLE
+    end
+    
+    it "adds new trip to driver's trip list" do
+      expect @trip.driver.trips.include?(@trip)
+    end
+
     
     it "driver is an instance of Driver" do
       expect(@trip.driver).must_be_kind_of RideShare::Driver
-    end
-    
-    it "passenger is an instance of Passenger" do
-      expect(@trip.passenger).must_be_kind_of RideShare::Passenger
     end
     
     it "raises an error if there are no drivers available" do
@@ -146,5 +163,13 @@ describe "TripDispatcher class" do
       expect{@dispatcher.request_trip(2)}.must_raise ArgumentError
     end
     
-  end
+    it "passenger is an instance of Passenger" do
+      expect(@trip.passenger).must_be_kind_of RideShare::Passenger
+    end
+    
+    it "adds the new trip to the passenger's list of trips" do
+    expect @trip.passenger.trips.include?(@trip)
+    end
+    
+  end    
 end
