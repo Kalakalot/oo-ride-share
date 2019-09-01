@@ -68,9 +68,10 @@ module RideShare
       assigned_driver.driver_helper(new_trip)
       
       # use the passenger id to look up passenger
-      # passenger = @passengers.find { |passenger| passenger.id == id }
+      passenger = @passengers.find { |passenger| passenger.id == id }
       
       # add the new trip to the passenger's collection of trips
+      
       
       # add the new trip to collection of all trips
       @trips << new_trip
