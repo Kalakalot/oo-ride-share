@@ -32,6 +32,15 @@ module RideShare
       @cost = cost
       @rating = rating
       @driver_id = driver_id
+      
+      if driver
+        @driver = driver
+        @driver_id = driver.id
+      elsif driver_id
+        @driver_id = driver_id
+      else
+        raise ArgumentError, 'Driver or driver_id is required'
+      end
             
       if 
         @rating != nil && (rating > 5 || @rating < 1)

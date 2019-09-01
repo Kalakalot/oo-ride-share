@@ -132,17 +132,19 @@ describe "TripDispatcher class" do
     it "return value is an instance of Trip" do
       expect(@trip).must_be_kind_of RideShare::Trip
     end
-
-    # Code below is failing "Expected nil to be a kind of 
-    # RideShare::Driver, not NilClass."
+    
     it "driver is an instance of Driver" do
-      expect(@driver).must_be_kind_of RideShare::Driver
+      expect(@trip.driver).must_be_kind_of RideShare::Driver
     end
-
+    
+    it "passenger is an instance of Passenger" do
+      expect(@trip.passenger).must_be_kind_of RideShare::Passenger
+    end
+    
     it "raises an error if there are no drivers available" do
       @test_trip2 = @dispatcher.request_trip(2)
       expect{@dispatcher.request_trip(2)}.must_raise ArgumentError
     end
-        
+    
   end
 end

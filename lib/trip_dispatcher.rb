@@ -52,10 +52,13 @@ module RideShare
       start_time = Time.now
       end_time = nil
       rating = nil
+      # use the passenger id to look up passenger
+      passenger = find_passenger(passenger_id)
       
       # instantiate the new trip
       new_trip = Trip.new(
         id: id, 
+        passenger: passenger,
         passenger_id: passenger_id, 
         start_time: start_time, 
         end_time: end_time, 
@@ -67,12 +70,9 @@ module RideShare
       # use helper method in driver.rb to update driver's trips and status
       assigned_driver.driver_helper(new_trip)
       
-      # use the passenger id to look up passenger
-      passenger = @passengers.find { |passenger| passenger.id == id }
-      
       # add the new trip to the passenger's collection of trips
       
-      
+
       # add the new trip to collection of all trips
       @trips << new_trip
       
