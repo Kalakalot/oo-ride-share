@@ -18,7 +18,7 @@ module RideShare
       
       # raise argument errors for driver statuses that aren't available or unavailable
       unless @status == :AVAILABLE || @status == :UNAVAILABLE
-        raise ArgumentError, "Please choose between AVAILABLE OR UNAVAILABLE"
+        raise ArgumentError.new("Please choose between AVAILABLE OR UNAVAILABLE")
       end
     end
     
@@ -52,6 +52,14 @@ module RideShare
       driver_earnings = (gross_revenue_array.sum - total_fees) * 0.80
       
       return driver_earnings
+    end
+    
+    # helper method for trip dispatcher request_trip method that ...
+    def driver_helper(new_trip)
+      # ... adds the newly requested trip to the collection of trips for that driver
+      @trips << new_trip
+      # ... and sets the driver's status to :UNAVAILABLE
+      @status = :UNAVAILABLE
     end
     
     def self.from_csv(record)

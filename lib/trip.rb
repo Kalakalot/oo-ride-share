@@ -13,7 +13,7 @@ module RideShare
       start_time:, 
       end_time:, 
       cost: nil, 
-      rating:,
+      rating: nil,
       driver_id: nil,
       driver: nil )
       super(id)
@@ -32,12 +32,13 @@ module RideShare
       @cost = cost
       @rating = rating
       @driver_id = driver_id
-      
-      if @rating > 5 || @rating < 1
+            
+      if 
+        @rating != nil && (rating > 5 || @rating < 1)
         raise ArgumentError.new("Invalid rating #{@rating}")
       end
       
-      if @end_time < @start_time
+      if @end_time !=nil && @end_time < @start_time
         raise ArgumentError.new(
           "The end time is earlier than the start time."
         )

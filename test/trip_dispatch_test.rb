@@ -52,29 +52,29 @@ describe "TripDispatcher class" do
         expect(passenger).must_be_kind_of RideShare::Passenger
       end
     end
+  end
+  
+  describe "Passenger & Trip loader methods" do
+    before do
+      @dispatcher = build_test_dispatcher
+    end
     
-    describe "Passenger & Trip loader methods" do
-      before do
-        @dispatcher = build_test_dispatcher
-      end
+    it "accurately loads passenger information into passengers array" do
+      first_passenger = @dispatcher.passengers.first
+      last_passenger = @dispatcher.passengers.last
       
-      it "accurately loads passenger information into passengers array" do
-        first_passenger = @dispatcher.passengers.first
-        last_passenger = @dispatcher.passengers.last
-        
-        expect(first_passenger.name).must_equal "Passenger 1"
-        expect(first_passenger.id).must_equal 1
-        expect(last_passenger.name).must_equal "Passenger 8"
-        expect(last_passenger.id).must_equal 8
-      end
-      
-      it "connects trips and passengers" do
-        dispatcher = build_test_dispatcher
-        dispatcher.trips.each do |trip|
-          expect(trip.passenger).wont_be_nil
-          expect(trip.passenger.id).must_equal trip.passenger_id
-          expect(trip.passenger.trips).must_include trip
-        end
+      expect(first_passenger.name).must_equal "Passenger 1"
+      expect(first_passenger.id).must_equal 1
+      expect(last_passenger.name).must_equal "Passenger 8"
+      expect(last_passenger.id).must_equal 8
+    end
+    
+    it "connects trips and passengers" do
+      dispatcher = build_test_dispatcher
+      dispatcher.trips.each do |trip|
+        expect(trip.passenger).wont_be_nil
+        expect(trip.passenger.id).must_equal trip.passenger_id
+        expect(trip.passenger.trips).must_include trip
       end
     end
   end
@@ -94,34 +94,64 @@ describe "TripDispatcher class" do
         expect(driver).must_be_kind_of RideShare::Driver
       end
     end
+  end
+  
+  describe "Driver & Trip loader methods" do
+    before do
+      @dispatcher = build_test_dispatcher
+    end
     
-    describe "Driver & Trip loader methods" do
-      before do
-        @dispatcher = build_test_dispatcher
-      end
+    it "accurately loads driver information into drivers array" do
+      first_driver = @dispatcher.drivers.first
+      last_driver = @dispatcher.drivers.last
       
-      it "accurately loads driver information into drivers array" do
-        first_driver = @dispatcher.drivers.first
-        last_driver = @dispatcher.drivers.last
-        
-        # changing test assertions to match test drivers.csv file
-        expect(first_driver.name).must_equal "Driver 1 (unavailable)"
-        expect(first_driver.id).must_equal 1
-        expect(first_driver.status).must_equal :UNAVAILABLE
-        expect(last_driver.name).must_equal "Driver 3 (no trips)"
-        expect(last_driver.id).must_equal 3
-        expect(last_driver.status).must_equal :AVAILABLE
-      end
-      
-      it "connects trips and drivers" do
-        dispatcher = build_test_dispatcher
-        dispatcher.trips.each do |trip|
-          expect(trip.driver).wont_be_nil
-          expect(trip.driver.id).must_equal trip.driver_id
-          expect(trip.driver.trips).must_include trip
-        end
+      # changing test assertions to match test drivers.csv file
+      expect(first_driver.name).must_equal "Driver 1 (unavailable)"
+      expect(first_driver.id).must_equal 1
+      expect(first_driver.status).must_equal :UNAVAILABLE
+      expect(last_driver.name).must_equal "Driver 3 (no trips)"
+      expect(last_driver.id).must_equal 3
+      expect(last_driver.status).must_equal :AVAILABLE
+    end
+    
+    it "connects trips and drivers" do
+      @dispatcher.trips.each do |trip|
+        expect(trip.driver).wont_be_nil
+        expect(trip.driver.id).must_equal trip.driver_id
+        expect(trip.driver.trips).must_include trip
       end
     end
   end
   
+  describe "Request_trip methods" do
+    before do
+      @dispatcher = build_test_dispatcher
+    end
+    
+    it "return value is an instance of Trip" do
+      @trip = @dispatcher.request_trip(1)
+
+      # expect(@trip.passenger.name).must_equal "Passenger 1"
+        # expect(trip.driver.name).must_equal "Driver 2"
+        # expect(trip.end_time).must_equal nil
+        # expect(trip.cost).must_equal nil
+        # expect(trip_rating).must_equal nil
+
+      expect(@trip).must_be_kind_of RideShare::Trip
+    end
+
+    # it "accurately creates a new trip" do
+
+    # it "request_trip creates a new trip instance" do
+    #   dispatcher = build_test_dispatcher
+    #   request_trip(1)
+    #   expect(trip.passenger.name).must_equal "Passenger 1"
+    #   expect(trip.driver.name).must_equal "Driver 2"
+    #   # how to test for start time? (current time when trip was requested)
+    #   expect(trip.end_time).must_equal nil
+    #   expect(trip.cost).must_equal nil
+    #   expect(trip_rating).must_equal nil
+    # end
+
+  end
 end
