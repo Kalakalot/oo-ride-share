@@ -16,22 +16,10 @@ module RideShare
       @trips << trip
     end
 
-    # create a custom error for trips in progress
-    class TripInProgressError < StandardError
-    end
-
-  
-    
-    # raise error message if there is a trip is in progress
     def net_expenditures # return total amount of $ passenger has spent
       passenger_costs = [] # store each cost 
       self.trips.each do |trip|
-        if trip.end_time != nil
           passenger_costs << trip.cost
-        else raise TripInProgressError.new(
-          "Notice: Passenger has a trip in progress. Expenditures will be updated once trip is complete."
-        )
-        end
       end
       total_cost = passenger_costs.sum
       return total_cost
